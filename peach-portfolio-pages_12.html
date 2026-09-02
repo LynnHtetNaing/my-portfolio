@@ -1,0 +1,1915 @@
+<!DOCTYPE html>
+<!--
+  Navigation model:
+  1. One full screen — name, title, tagline, and directly beneath an
+     "Enter portfolio" label, a compact horizontal row of five plain-text
+     titles: Profile, Experience, Achievements, Skills, Qualifications.
+     No scrolling, no boxes, no dividing lines.
+  2. Clicking a title opens a dedicated full-screen page for just that
+     content (slides up over everything). A back button returns here.
+
+  Design direction: Swiss / Bauhaus minimalist — near-black and off-white,
+  one bold accent (currently signal red, swap the --accent variable for
+  another single bold color if you'd prefer), flat color blocks instead
+  of gradients, sharp corners, monospace for all numbers/stats.
+  Search "REPLACE" for anything left blank.
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lynn Htet Naing (Peach) — Professional Portfolio</title>
+<meta name="description" content="Professional Portfolio — Sales & Revenue Executive with a hospitality background, building toward Product & IT Management.">
+<meta property="og:title" content="Lynn Htet Naing (Peach) — Professional Portfolio">
+<meta property="og:description" content="Sales & Revenue Executive with a hospitality background, building toward Product & IT Management.">
+<meta property="og:type" content="website">
+<!-- REMOVE this line once you're ready for search engines to index the
+     site — right now it tells Google and others not to list it. -->
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,600;6..72,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #141414;
+    --navy-2: #2B2B2B;
+    --paper: #F7EFEC;
+    --paper-alt: #EFE1DC;
+    --ink: #141414;
+    --muted: #6B6B68;
+    --muted-on-dark: #8A8A85;
+    --accent: #D8332A;
+    --accent-2: #C9A24B;
+    --line: #DDCCC5;
+    --display: 'Newsreader', Georgia, serif;
+    --body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; }
+  body { font-family: var(--body); color: var(--ink); background: var(--paper); line-height: 1.6; overflow-x: hidden; }
+  a, button { color: inherit; }
+  h1, h2, h3 { font-family: var(--display); font-weight: 600; margin: 0; }
+
+  /* ---------- Screen 1: Cover — asymmetric split layout ---------- */
+  .screen { min-height: 100vh; width: 100%; }
+  #cover {
+    display: flex; flex-direction: column; justify-content: center;
+    background: var(--navy); color: #F5F5F3; position: relative; padding: 24px 0 90px;
+  }
+
+  .cover-network { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+
+  .hero-split {
+    position: relative; z-index: 1;
+    display: grid; grid-template-columns: 60% 40%; align-items: center; gap: 48px;
+    width: 100%; max-width: 1300px; margin: 0 auto; padding: 0 56px;
+  }
+  @media (max-width: 860px) {
+    .hero-split { grid-template-columns: 1fr; gap: 32px; padding: 0 24px; }
+    .hero-right { order: 2; }
+    .site-copyright.on-dark { order: 3; }
+  }
+
+  .hero-left {
+    text-align: left; position: relative; z-index: 1;
+    background: linear-gradient(100deg, var(--navy) 55%, rgba(20, 20, 20, 0.55) 78%, transparent 92%);
+    padding: 8px 12px; margin: -8px -12px;
+  }
+  .cover-name { font-size: clamp(2rem, 5vw, 3.2rem); color: #FFFFFF; letter-spacing: -0.01em; text-align: left; }
+  .cover-subtitle {
+    font-family: var(--display); font-weight: 800; font-size: clamp(1.25rem, 2.4vw, 1.7rem);
+    color: #D97B6E; margin-top: 14px; text-align: left;
+  }
+  .cover-bio { font-size: 0.98rem; font-weight: 300; color: var(--muted-on-dark); margin-top: 16px; max-width: 56ch; text-align: left; }
+
+  .bridge-diagram { display: flex; align-items: center; gap: 14px; margin-top: 44px; width: 100%; }
+  .bd-icon-wrap { position: relative; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .bd-icon-wrap::before {
+    content: ''; position: absolute; inset: -6px; border-radius: 50%; border: 1px solid currentColor;
+    opacity: 0;
+  }
+  .bd-icon-exp { color: var(--accent-2); }
+  .bd-icon-system { color: var(--accent); }
+  .bd-icon-revenue { color: var(--accent-2); }
+  .bd-icon-outcome { color: var(--accent); }
+  @media (prefers-reduced-motion: no-preference) {
+    .bd-icon-wrap::before { animation: bdRipple 2.4s ease-out infinite; }
+    .bd-icon-system::before { animation-delay: 0.6s; }
+    .bd-icon-revenue::before { animation-delay: 1.2s; }
+    .bd-icon-outcome::before { animation-delay: 1.8s; }
+    @keyframes bdRipple {
+      0% { transform: scale(1); opacity: 0.55; }
+      100% { transform: scale(2.4); opacity: 0; }
+    }
+  }
+  .bd-line { position: relative; flex: 1 1 auto; min-width: 24px; height: 1px; background: rgba(245, 245, 243, 0.2); }
+  .bd-pulse {
+    position: absolute; top: 50%; left: 0; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent); transform: translateY(-50%);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .bd-pulse { animation: bdPulseTravel 2.4s linear infinite; }
+    @keyframes bdPulseTravel {
+      0% { left: 0%; opacity: 0; }
+      8% { opacity: 1; }
+      92% { opacity: 1; }
+      100% { left: 100%; opacity: 0; }
+    }
+  }
+  @media (prefers-reduced-motion: reduce) { .bd-pulse { left: 50%; opacity: 1; } }
+
+  .value-cards { display: grid; grid-template-columns: 1fr 1fr 1.5fr; gap: 16px; margin-top: 44px; }
+  @media (max-width: 640px) { .value-cards { grid-template-columns: 1fr; } }
+  .value-card { background: rgba(245, 245, 243, 0.05); border: 1px solid rgba(245, 245, 243, 0.14); padding: 20px; min-width: 0; position: relative; }
+  .value-label-line {
+    display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%;
+  }
+  .value-label-line + .value-label-line { margin-top: 2px; }
+  .value-num { font-family: var(--mono); font-weight: 700; font-size: 1.8rem; color: #F5F5F3; }
+  .value-num-text { font-family: var(--display); font-weight: 700; font-size: 1.25rem; line-height: 1.2; }
+  .site-copyright {
+    font-size: 0.7rem; color: var(--muted); text-align: left; margin: 0; padding: 24px 0 8px;
+  }
+  .site-copyright.on-dark { color: var(--muted-on-dark); grid-column: 1 / -1; }
+  .value-label { font-size: 0.76rem; color: var(--muted-on-dark); margin-top: 6px; line-height: 1.4; }
+
+  .hero-right { display: flex; justify-content: center; align-items: center; }
+  .visual-anchor {
+    width: 100%; max-width: 340px; aspect-ratio: 2 / 3; margin-top: 48px;
+    background: linear-gradient(160deg, rgba(245, 245, 243, 0.09), rgba(245, 245, 243, 0.02));
+    border: 1px solid rgba(245, 245, 243, 0.16); backdrop-filter: blur(6px);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--muted-on-dark); font-size: 0.85rem; text-align: center; padding: 24px;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-split { opacity: 0; transform: translateY(10px); animation: coverFadeIn 0.5s ease-out 0.2s forwards; }
+    @keyframes coverFadeIn { to { opacity: 1; transform: translateY(0); } }
+  }
+
+  .nav-toggle {
+    position: fixed; top: 0; right: 0; z-index: 56; cursor: pointer;
+    display: flex; align-items: center; gap: 10px;
+    background: var(--paper); border: none; border-bottom: 2px solid var(--ink);
+    border-left: 1px solid var(--line);
+    padding: 18px 24px;
+  }
+  .hamburger-lines { display: flex; flex-direction: column; gap: 5px; }
+  .hamburger-line {
+    width: 20px; height: 2px; background: var(--ink);
+    transition: transform 0.25s ease, opacity 0.2s ease, background 0.2s ease;
+  }
+  .nav-toggle-label {
+    font-family: var(--mono); font-size: 0.72rem; font-weight: 700;
+    letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink);
+    transition: color 0.2s ease;
+  }
+  .nav-toggle[aria-expanded="true"] .hamburger-line:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-toggle[aria-expanded="true"] .hamburger-line:nth-child(2) { opacity: 0; }
+  .nav-toggle[aria-expanded="true"] .hamburger-line:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* On the dark main cover there's no light page-back bar to match, so
+     the icon switches to light-on-dark instead. Toggled via JS. */
+  .nav-toggle.on-dark {
+    background: var(--navy); border-bottom: 1px solid rgba(245, 245, 243, 0.2);
+    border-left: none; border-top: 3px solid var(--accent);
+  }
+  .nav-toggle.on-dark .hamburger-line { background: #F5F5F3; }
+  .nav-toggle.on-dark .nav-toggle-label { color: #F5F5F3; }
+
+  .nav-backdrop {
+    position: fixed; inset: 0; z-index: 54; background: rgba(0, 0, 0, 0.5);
+    opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+  }
+  .nav-backdrop.open { opacity: 1; visibility: visible; transition: opacity 0.3s ease, visibility 0s linear 0s; }
+
+  .nav-panel {
+    position: fixed; top: 0; right: 0; height: 100vh; width: 38%; min-width: 280px; z-index: 55;
+    display: flex; flex-direction: column; justify-content: center; gap: 22px;
+    background: var(--navy); border-left: 1px solid rgba(245, 245, 243, 0.16);
+    padding: 60px 48px;
+    opacity: 0; visibility: hidden; pointer-events: none;
+    transition: opacity 0.15s ease, visibility 0s linear 0.15s;
+  }
+  .nav-panel.open {
+    opacity: 1; visibility: visible; pointer-events: auto;
+    transition: opacity 0.15s ease, visibility 0s linear 0s;
+  }
+  .menu-item {
+    background: none; border: none; cursor: pointer; padding: 0 0 8px; text-align: left;
+    font-family: var(--display); font-weight: 700; font-size: 1.3rem;
+    color: #F5F5F3; position: relative;
+    opacity: 0; transform: translateX(28px);
+    transition: color 0.15s ease, transform 0.1s ease, opacity 0.35s ease, transform 0.35s ease;
+  }
+  .nav-panel.open .menu-item { opacity: 1; transform: translateX(0); }
+  .nav-panel.open .menu-item:nth-child(1) { transition-delay: 0.05s; }
+  .nav-panel.open .menu-item:nth-child(2) { transition-delay: 0.1s; }
+  .nav-panel.open .menu-item:nth-child(3) { transition-delay: 0.15s; }
+  .nav-panel.open .menu-item:nth-child(4) { transition-delay: 0.2s; }
+  .nav-panel.open .menu-item:nth-child(5) { transition-delay: 0.25s; }
+  .nav-panel.open .menu-item:nth-child(6) { transition-delay: 0.3s; }
+  .menu-item::after {
+    content: ''; position: absolute; left: 0; bottom: 0; width: 100%; height: 2px;
+    background: var(--accent); transform: scaleX(0); transform-origin: left;
+    transition: transform 0.25s ease;
+  }
+  .menu-item:hover { color: var(--accent); }
+  .menu-item:hover::after { transform: scaleX(1); }
+  .menu-item:active { transform: translateY(3px); }
+
+  /* ---------- Full-screen pages ---------- */
+  .page-overlay {
+    position: fixed; inset: 0; background: var(--paper);
+    overflow-y: auto; z-index: 50; scroll-behavior: smooth;
+    opacity: 0; visibility: hidden; transition: opacity 0.2s ease, visibility 0s linear 0.2s;
+  }
+  .page-overlay.open { opacity: 1; visibility: visible; transition: opacity 0.2s ease, visibility 0s linear 0s; }
+  @media (prefers-reduced-motion: no-preference) {
+    .page-overlay {
+      clip-path: circle(0% at var(--ox, 50%) var(--oy, 50%));
+      transition: clip-path 0.6s ease, opacity 0s linear 0.6s, visibility 0s linear 0.6s;
+    }
+    .page-overlay.open {
+      clip-path: circle(150% at var(--ox, 50%) var(--oy, 50%));
+      transition: clip-path 0.6s ease, opacity 0s linear 0s, visibility 0s linear 0s;
+    }
+  }
+
+  .page-back {
+    position: sticky; top: 0; background: var(--paper); border-bottom: 2px solid var(--ink);
+    padding: 18px 32px; display: flex; align-items: center; gap: 10px;
+    font-size: 0.9rem; font-weight: 700; cursor: pointer; border-left: none; border-right: none; border-top: none; z-index: 5; width: 100%;
+    font-family: var(--display); text-align: left;
+  }
+  .page-back:hover { color: var(--accent); }
+  .page-inner { max-width: 720px; margin: 0 auto; padding: 40px 32px 80px; }
+  .page-inner-wide { max-width: none; padding-left: 56px; padding-right: 56px; }
+  @media (max-width: 640px) { .page-inner-wide { padding-left: 20px; padding-right: 20px; } }
+
+  /* Profile page */
+  .cover-band { height: 160px; background: var(--accent); }
+  .profile-head { max-width: 720px; margin: 0 auto; padding: 0 32px; display: flex; align-items: flex-end; gap: 22px; transform: translateY(-40px); }
+  .profile-id { min-width: 0; }
+  @media (max-width: 560px) { .profile-head { flex-direction: column; align-items: center; text-align: center; } }
+  .avatar-lg { width: 120px; height: 120px; border-radius: 0; background: var(--navy); border: 6px solid var(--paper); display: flex; align-items: center; justify-content: center; font-family: var(--display); font-weight: 800; font-size: 2.1rem; color: #FFFFFF; flex-shrink: 0; }
+  .profile-id .pname { font-size: 1.5rem; position: relative; }
+  .profile-id .ptitle {
+    font-size: 0.92rem; color: var(--muted); margin-top: 4px;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%;
+  }
+  .quick-contact-btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 28px; height: 28px; margin-left: 6px; vertical-align: middle;
+    background: none; border: 1.5px solid var(--ink); color: var(--ink); cursor: pointer;
+  }
+  .quick-contact-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .quick-contact-popover {
+    position: absolute; top: calc(100% + 8px); left: 0; z-index: 10; min-width: 220px;
+    display: flex; flex-direction: column; gap: 10px;
+    background: var(--paper); border: 1px solid var(--line); padding: 16px 18px;
+    box-shadow: 0 6px 18px rgba(20, 20, 20, 0.12);
+    opacity: 0; visibility: hidden; transform: translateY(-6px);
+    transition: opacity 0.15s ease, transform 0.15s ease, visibility 0s linear 0.15s;
+  }
+  .quick-contact-popover.open {
+    opacity: 1; visibility: visible; transform: translateY(0);
+    transition: opacity 0.15s ease, transform 0.15s ease, visibility 0s linear 0s;
+  }
+  .quick-contact-popover a { color: var(--accent); font-weight: 500; font-size: 0.88rem; display: inline-flex; align-items: center; gap: 8px; text-decoration: none; }
+  .quick-contact-popover a:hover { color: var(--ink); }
+  .quick-contact-more { font-size: 0.8rem; color: var(--muted); font-weight: 600; }
+  .intro-line { max-width: 720px; margin: 8px auto 0; padding: 0 32px 20px; display: flex; gap: 18px; flex-wrap: wrap; font-size: 0.86rem; color: var(--muted); border-bottom: 2px solid var(--ink); }
+  .intro-line span { min-width: 0; }
+  .mobile-break { display: none; }
+  .short-text { display: none; }
+  .intro-line strong { color: var(--ink); font-weight: 700; }
+  .intro-hang-label { margin-right: 4px; }
+  .lede { font-size: 1rem; }
+  .bio-section-label {
+    display: block; font-family: var(--mono); font-size: 0.78rem; font-weight: 700;
+    letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px;
+  }
+  .bio-box { border: 1px solid var(--line); background: var(--paper-alt); padding: 22px 24px; }
+  .bio-divider { border: none; border-top: 2px solid var(--ink); margin: 28px 0 20px; }
+  .side-contact {
+    list-style: none; padding: 0; margin: 12px 0 0; font-size: 0.92rem;
+  }
+  .side-contact li { margin-bottom: 14px; }
+  .side-contact a { color: var(--accent); font-weight: 500; display: inline-flex; align-items: center; gap: 10px; }
+  .side-contact svg { flex-shrink: 0; }
+  .contact-gate {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px;
+    background: var(--paper-alt); border: 1px solid var(--line); padding: 10px 12px; margin: 20px 0 0;
+    max-width: 100%; overflow-x: auto;
+  }
+  .contact-gate-icon { color: var(--accent); display: flex; }
+  .contact-gate-label { font-size: 0.82rem; color: var(--muted); flex-basis: 100%; }
+  .contact-gate-btn {
+    font-family: var(--body); font-size: 0.82rem; font-weight: 600;
+    background: none; border: 1.5px solid var(--ink); color: var(--ink);
+    padding: 5px 12px; cursor: pointer; border-radius: 0;
+  }
+  .contact-gate-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+  .contact-gate-btn:not(:disabled):hover { border-color: var(--accent); color: var(--accent); }
+  #phoneRevealed a { color: var(--accent); font-weight: 600; }
+
+  /* Experience page: brief cards, horizontal grid, staggered entrance */
+  .job-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px; }
+  .job-card {
+    background: var(--paper-alt); border: none; border-left: 4px solid var(--ink); border-radius: 0;
+    padding: 24px 26px; text-align: left; cursor: pointer; font-family: inherit; color: inherit;
+    display: flex; flex-direction: column; gap: 8px; width: 100%; min-width: 0; position: relative;
+    transition: transform 0.15s ease, border-left-color 0.15s ease;
+  }
+  .job-card:hover { border-left-color: var(--accent); transform: translateY(-4px); }
+  .job-card::after {
+    content: '→'; position: absolute; top: 24px; right: 26px; color: var(--accent);
+    opacity: 0; transition: opacity 0.15s ease;
+  }
+  .job-card:hover::after { opacity: 1; }
+  .job-card .job-role {
+    font-family: var(--display); font-weight: 800; font-size: 1.5rem; padding-right: 24px;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .job-card .job-when { font-family: var(--mono); font-size: 0.82rem; color: var(--accent); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .job-card .job-company { font-size: 0.9rem; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .job-card .job-location { font-size: 0.84rem; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  @media (prefers-reduced-motion: no-preference) {
+    .job-card { opacity: 0; transform: translateY(24px); }
+    .job-list.animate .job-card { animation: jobFlopIn 0.45s ease forwards; }
+    .job-list.animate .job-card:nth-child(1) { animation-delay: 0.05s; }
+    .job-list.animate .job-card:nth-child(2) { animation-delay: 0.11s; }
+    .job-list.animate .job-card:nth-child(3) { animation-delay: 0.17s; }
+    .job-list.animate .job-card:nth-child(4) { animation-delay: 0.23s; }
+    .job-list.animate .job-card:nth-child(5) { animation-delay: 0.29s; }
+    @keyframes jobFlopIn { to { opacity: 1; transform: translateY(0); } }
+  }
+
+  /* Experience detail modal — circular reveal from the click point */
+  .job-modal-backdrop {
+    position: fixed; inset: 0; background: rgba(20, 20, 20, 0.6);
+    z-index: 60; display: flex; align-items: center; justify-content: center; padding: 24px;
+    opacity: 0; visibility: hidden; transition: opacity 0.2s ease, visibility 0s linear 0.2s;
+  }
+  .job-modal-backdrop.open { opacity: 1; visibility: visible; transition: opacity 0.2s ease, visibility 0s linear 0s; }
+  .job-modal {
+    background: var(--paper); max-width: 560px; width: 100%; max-height: 80vh; overflow-y: auto;
+    padding: 32px; position: relative; border-top: 4px solid var(--accent);
+    transform: scale(0.92); opacity: 0; transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+  .job-modal-backdrop.open .job-modal { transform: scale(1); opacity: 1; }
+  @media (prefers-reduced-motion: no-preference) {
+    .job-modal-backdrop {
+      clip-path: circle(0% at var(--ox, 50%) var(--oy, 50%));
+      transition: clip-path 0.6s ease, opacity 0s linear 0.6s, visibility 0s linear 0.6s;
+    }
+    .job-modal-backdrop.open {
+      clip-path: circle(150% at var(--ox, 50%) var(--oy, 50%));
+      transition: clip-path 0.6s ease, opacity 0s linear 0s, visibility 0s linear 0s;
+    }
+    .job-modal { transition: transform 0.35s ease 0.25s, opacity 0.35s ease 0.25s; }
+  }
+  .job-modal h3 { font-size: 1.2rem; }
+  .job-modal-meta { font-size: 0.86rem; color: var(--muted); margin-top: 6px; }
+  .job-modal-meta span { display: block; margin-top: 3px; }
+  .job-modal-meta span:first-child { margin-top: 0; font-family: var(--mono); color: var(--accent); }
+  .job-modal-meta span:nth-child(2), .job-modal-meta span:nth-child(3) {
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%;
+  }
+  .job-modal ul { margin: 18px 0 0; padding-left: 20px; font-size: 0.92rem; }
+  .job-modal li { margin-bottom: 8px; }
+  .job-modal li::marker { color: var(--accent); }
+  .job-modal-close {
+    position: absolute; top: 16px; right: 16px; width: 32px; height: 32px;
+    display: flex; align-items: center; justify-content: center;
+    background: none; border: 2px solid var(--ink); cursor: pointer; color: var(--ink); padding: 0;
+  }
+  .job-modal-close:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* Achievements page */
+  .milestone-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 24px; }
+  @media (max-width: 560px) { .milestone-grid { grid-template-columns: 1fr 1fr; } }
+  .milestone { background: var(--paper-alt); border: none; border-radius: 0; padding: 20px; border-top: 4px solid var(--accent); }
+  .m-num { font-family: var(--mono); font-weight: 500; font-size: 1.6rem; }
+  .m-label { font-size: 0.8rem; color: var(--muted); margin-top: 4px; }
+  .case { background: var(--paper-alt); border: none; border-left: 4px solid var(--ink); border-radius: 0; padding: 22px 24px; margin-bottom: 14px; }
+  .case:last-child { margin-bottom: 0; }
+  .case-title { font-family: var(--display); font-weight: 700; font-size: 0.98rem; }
+  .case p { font-size: 0.92rem; margin: 10px 0 0; }
+  .case .result { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--line); font-size: 0.88rem; color: var(--muted); }
+  .case .result strong { color: var(--accent); font-family: var(--mono); font-weight: 500; }
+
+  /* Qualifications page */
+  .qual-list { display: grid; gap: 12px; }
+  .qual-item { background: var(--paper-alt); border: none; border-left: 4px solid var(--ink); border-radius: 0; padding: 16px 20px; display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .qual-name { font-weight: 600; font-size: 0.94rem; }
+  .qual-status { font-family: var(--mono); font-size: 0.8rem; color: var(--accent); font-weight: 500; }
+  .chip-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+  .avatar-lg img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .visa-note { white-space: nowrap; overflow-x: auto; }
+  .chip { font-size: 0.8rem; padding: 6px 14px; border-radius: 0; border: 1.5px solid var(--ink); color: var(--ink); }
+
+  /* Performance Data page */
+  .perf-filters { display: flex; flex-wrap: wrap; align-items: end; gap: 16px; margin-bottom: 32px; }
+  .perf-field { display: flex; flex-direction: column; gap: 6px; }
+  .perf-field label { font-size: 0.76rem; color: var(--muted); font-weight: 600; }
+  .perf-field select, .perf-field input {
+    font-family: var(--body); font-size: 0.9rem; padding: 9px 10px;
+    border: 1px solid var(--line); border-radius: 0; background: var(--paper);
+    color: var(--ink);
+  }
+  .perf-apply {
+    font-family: var(--display); font-weight: 700; font-size: 0.9rem;
+    background: var(--accent); color: #FFFFFF; border: none; padding: 10px 22px;
+    cursor: pointer; border-radius: 0;
+  }
+  .perf-apply:hover { opacity: 0.9; }
+  .perf-summary { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; margin-bottom: 32px; }
+  @media (max-width: 900px) { .perf-summary { grid-template-columns: repeat(2, 1fr); } }
+  .perf-summary .value-card { background: var(--paper-alt); border: 1px solid var(--line); }
+  .perf-summary .value-num { color: var(--ink); font-size: 1.4rem; }
+  .perf-summary .value-label { color: var(--muted); }
+  .perf-badge {
+    display: inline-block; font-size: 0.78rem; font-weight: 600; color: var(--accent);
+    border: 1px solid var(--accent); padding: 6px 14px;
+  }
+  .perf-results { display: grid; gap: 14px; }
+  .perf-row { background: var(--paper-alt); border-left: 4px solid var(--accent-2); padding: 18px 22px; }
+  .perf-row-name { font-family: var(--display); font-weight: 700; font-size: 1.05rem; margin-bottom: 12px; }
+  .perf-row-fields { display: flex; flex-wrap: wrap; gap: 20px 28px; }
+  .perf-row-fields span { display: flex; flex-direction: column; gap: 3px; font-size: 0.92rem; color: var(--ink); }
+  .perf-row-fields span strong { font-size: 0.72rem; color: var(--muted); font-weight: 600; text-transform: none; }
+
+  .perf-gate { max-width: 60ch; margin: 0 auto; text-align: center; }
+
+  /* Performance page: centered, larger type throughout */
+  .perf-page { text-align: center; }
+  .perf-page .lede { max-width: 62ch; font-size: 1.08rem; }
+  .perf-page .perf-filters { justify-content: center; }
+  .perf-page .perf-field { text-align: left; }
+  .perf-page .perf-summary { max-width: 1100px; margin-left: auto; margin-right: auto; }
+  .perf-page .perf-summary .value-num { font-size: 2.1rem; }
+  .perf-page .perf-summary .value-label { font-size: 0.85rem; }
+  .perf-page .perf-results { max-width: 900px; margin: 0 auto; }
+  .perf-page .perf-row { text-align: center; }
+  .perf-page .perf-row-name { font-size: 1.4rem; }
+  .perf-page .perf-row-fields { justify-content: center; }
+  .perf-page .perf-row-fields span { font-size: 1.05rem; align-items: center; }
+  .perf-page .perf-row-fields span strong { font-size: 0.78rem; }
+
+  .live-badge {
+    display: inline-flex; align-items: center; gap: 8px; vertical-align: middle;
+    font-family: var(--mono); font-weight: 700; font-size: 0.8rem; letter-spacing: 0.05em;
+    color: var(--accent); border: 1px solid var(--accent); padding: 5px 14px; margin-left: 12px;
+  }
+  .live-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+
+  .perf-title { font-size: clamp(2.6rem, 7vw, 4rem); margin-bottom: 16px; display: inline-block; }
+  @media (prefers-reduced-motion: no-preference) {
+    .perf-title { animation: perfFlopIn 0.6s ease-out, perfTwinkle 2.2s ease-in-out 0.6s infinite; }
+    @keyframes perfFlopIn {
+      0% { opacity: 0; transform: scale(0.4) rotate(-8deg); }
+      60% { opacity: 1; transform: scale(1.05) rotate(3deg); }
+      100% { opacity: 1; transform: scale(1) rotate(0); }
+    }
+    @keyframes perfTwinkle {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.35; }
+    }
+  }
+
+  .perf-header { position: relative; padding-top: 20px; margin-bottom: 8px; }
+  .perf-radar-badge {
+    position: absolute; top: 0; right: 0;
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--mono); font-weight: 700; font-size: 0.78rem; letter-spacing: 0.05em;
+    color: var(--accent);
+  }
+  .perf-radar-dot {
+    position: relative; width: 8px; height: 8px; border-radius: 50%; background: var(--accent);
+    display: inline-block; flex-shrink: 0;
+  }
+  .perf-radar-ring {
+    position: absolute; inset: -4px; border: 1.5px solid var(--accent); border-radius: 50%; opacity: 0;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .perf-radar-ring { animation: radarPing 2s ease-out infinite; }
+    .perf-radar-ring-2 { animation-delay: 1s; }
+    @keyframes radarPing {
+      0% { transform: scale(1); opacity: 0.8; }
+      100% { transform: scale(3.2); opacity: 0; }
+    }
+  }
+
+  .perf-ticker {
+    overflow: hidden; white-space: nowrap;
+    border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+    padding: 12px 0; margin: 4px auto 28px; max-width: 560px;
+  }
+  .perf-ticker-track {
+    display: inline-block; font-family: var(--display); font-weight: 700;
+    font-size: 1.3rem; color: var(--ink);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .perf-ticker-track { animation: perfTicker 16s linear infinite; }
+    @keyframes perfTicker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  }
+  .perf-terms { font-size: 0.86rem; color: var(--muted); margin-top: 14px; line-height: 1.55; }
+
+  .perf-tc { text-align: left; max-width: 60ch; margin: 0 auto 22px; border: 1px solid var(--line); background: var(--paper-alt); }
+  .perf-tc summary {
+    cursor: pointer; padding: 14px 18px; font-family: var(--display); font-weight: 700;
+    font-size: 0.95rem; color: var(--ink); list-style: none;
+  }
+  .perf-tc summary::-webkit-details-marker { display: none; }
+  .perf-tc summary::before { content: '+ '; color: var(--accent); font-weight: 800; }
+  .perf-tc[open] summary::before { content: '– '; }
+  .perf-tc-body { padding: 0 18px 18px; font-size: 0.86rem; color: var(--muted); line-height: 1.6; }
+  .perf-tc-body p { margin: 0 0 12px; }
+  .perf-tc-body p:last-child { margin-bottom: 0; }
+  .perf-tc-body strong { color: var(--ink); }
+  .perf-form { display: flex; flex-direction: column; gap: 10px; margin-top: 18px; }
+  .perf-form input[type="text"], .perf-form input[type="email"], .perf-form input[type="tel"], .perf-form select, .perf-form textarea {
+    font-family: var(--body); font-size: 0.9rem; padding: 10px 12px;
+    border: 1px solid var(--line); border-radius: 0; background: var(--paper); color: var(--ink);
+  }
+  .perf-form textarea { resize: vertical; font-family: var(--body); }
+  .perf-agree { display: flex; align-items: center; gap: 8px; font-size: 0.84rem; color: var(--muted); margin-top: 4px; }
+  .perf-phone-row { display: flex; gap: 8px; }
+  .perf-phone-row select {
+    font-family: var(--body); font-size: 0.9rem; padding: 10px 8px;
+    border: 1px solid var(--line); border-radius: 0; background: var(--paper); color: var(--ink);
+    flex: 0 0 auto; max-width: 40%;
+  }
+  .perf-phone-row input { flex: 1 1 auto; min-width: 0; }
+  .perf-form-error { font-size: 0.84rem; color: var(--accent); font-weight: 600; margin: 4px 0 0; }
+
+  /* ================= Mobile fixes ================= */
+  @media (max-width: 640px) {
+    .page-inner { padding: 32px 20px 90px; }
+
+    /* Job cards: avoid forcing a 300px minimum on narrow phones, which
+       was pushing the layout wider than the screen. */
+    .job-list { grid-template-columns: 1fr; }
+
+    /* Quick-contact popover: on mobile the name/icon become centered
+       (not left-aligned like desktop), so anchoring the popover to the
+       icon's own left edge pushed it off the right side of the screen.
+       Center it on the viewport instead, with a width that's always
+       guaranteed to fit regardless of screen size. */
+    .quick-contact-popover {
+      left: 50%; top: calc(100% + 10px);
+      transform: translateX(-50%) translateY(-6px);
+      width: calc(100vw - 48px); max-width: 280px; min-width: 0;
+    }
+    .quick-contact-popover.open { transform: translateX(-50%) translateY(0); }
+
+    /* Performance title: radar badge shrinks and title scales down. */
+    .perf-header { padding-top: 26px; }
+    .perf-radar-badge { font-size: 0.68rem; gap: 6px; }
+    .perf-title { font-size: clamp(1.9rem, 9vw, 2.6rem); }
+
+    /* Phone code + number: stack so neither gets cramped. */
+    .perf-phone-row { flex-direction: column; }
+    .perf-phone-row select { max-width: 100%; }
+
+    /* Modals: less padding so content has room to breathe. */
+    .job-modal-backdrop { padding: 14px; }
+    .job-modal { padding: 22px; }
+
+    /* This note was forced to one line for desktop; on a narrow phone
+       that meant scrolling sideways just to read a sentence. Let it wrap. */
+    .visa-note { white-space: normal; overflow-x: visible; }
+
+    /* Line breaks used for splitting long cover headlines on mobile
+       (e.g. "Revenue Management &" / "B2B Technology Sales"). */
+    .mobile-break { display: inline; }
+
+    /* Abbreviate United States to US on mobile so it fits on one line. */
+    .full-text { display: none; }
+    .short-text { display: inline; }
+
+    /* Hanging indent: the value text wraps aligned to its own start,
+       not back to the left edge under "Open to". */
+    .intro-hang { display: flex; flex-wrap: nowrap; align-items: baseline; }
+    .intro-hang-label { flex-shrink: 0; }
+    .intro-hang strong { flex: 1 1 auto; min-width: 0; }
+  }
+
+  @media (max-width: 460px) {
+    .milestone-grid { grid-template-columns: 1fr; }
+    .perf-summary { grid-template-columns: 1fr; }
+    .perf-page .perf-summary .value-num { font-size: 1.7rem; }
+    .cover-avatar { width: 76px; height: 76px; font-size: 1.6rem; }
+    .avatar-lg { width: 96px; height: 96px; font-size: 1.7rem; }
+  }
+
+  /* Desktop only — bigger cover text for more attention/legibility on a
+     large screen. Mobile is untouched (uses the clamp()/base sizes above). */
+  @media (min-width: 861px) {
+    .cover-name { font-size: 3.8rem; }
+    .cover-subtitle { font-size: 2rem; }
+    .cover-bio { font-size: 1.15rem; }
+    .side-contact-row { display: flex; flex-wrap: wrap; gap: 12px 32px; }
+    .side-contact-row li { margin-bottom: 0; }
+
+    /* Main page copyright only — bigger and more breathing room above it.
+       Left alignment is automatic now (shares the grid with the name).
+       Desktop/window view only. Mobile and every other page untouched. */
+    .site-copyright.on-dark { font-size: 0.85rem; padding-top: 56px; }
+  }
+</style>
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GDEF66WMJ5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-GDEF66WMJ5');
+</script>
+</head>
+<body>
+
+  <!-- ============ SCREEN: COVER — asymmetric split layout ============ -->
+  <section id="cover" class="screen">
+    <canvas id="cover-network" class="cover-network" aria-hidden="true"></canvas>
+    <div class="hero-split">
+      <div class="hero-left">
+        <h1 class="cover-name">Lynn Htet Naing</h1>
+        <div class="cover-subtitle">Revenue Management &amp;<br class="mobile-break"> B2B Technology Sales</div>
+        <p class="cover-bio">Turning hospitality instinct into measurable business results.</p>
+
+        <div class="bridge-diagram" aria-hidden="true">
+          <span class="bd-icon-wrap bd-icon-exp" title="Experience">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--accent-2)" stroke-width="1.6">
+              <rect x="4" y="8" width="16" height="11"/>
+              <path d="M9 8V6a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"/>
+              <path d="M4 13h16"/>
+            </svg>
+          </span>
+          <div class="bd-line"><span class="bd-pulse" style="animation-delay: 0s;"></span></div>
+
+          <span class="bd-icon-wrap bd-icon-system" title="System">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.6">
+              <circle cx="12" cy="12" r="4"/>
+              <path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"/>
+            </svg>
+          </span>
+          <div class="bd-line"><span class="bd-pulse" style="animation-delay: 0.6s;"></span></div>
+
+          <span class="bd-icon-wrap bd-icon-revenue" title="Revenue">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--accent-2)" stroke-width="1.6">
+              <rect x="4" y="12" width="4" height="8" fill="var(--accent-2)" stroke="none"/>
+              <rect x="10" y="7" width="4" height="13" fill="var(--accent-2)" stroke="none"/>
+              <rect x="16" y="3" width="4" height="17" fill="var(--accent-2)" stroke="none"/>
+            </svg>
+          </span>
+          <div class="bd-line"><span class="bd-pulse" style="animation-delay: 1.2s;"></span></div>
+
+          <span class="bd-icon-wrap bd-icon-outcome" title="Outcome">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.6">
+              <circle cx="12" cy="12" r="9"/>
+              <path d="M8 12.5l3 3 6-6.5"/>
+            </svg>
+          </span>
+        </div>
+
+        <div class="value-cards">
+          <div class="value-card">
+            <div class="value-num">5+</div>
+            <div class="value-label">Years Across Hospitality, Finance &amp; Tech Sales</div>
+          </div>
+          <div class="value-card">
+            <div class="value-num">70+</div>
+            <div class="value-label">Staff Led Across Departments</div>
+          </div>
+          <div class="value-card">
+            <!-- REPLACE/REMOVE: this card is a 3-year FUTURE TARGET, not a
+                 current achievement — do not publish until this is real. -->
+            <div class="value-num">20+</div>
+            <div class="value-label">
+              <span class="value-label-line">Markets Tracked Across Indochina</span>
+              <span class="value-label-line">(Thailand, Vietnam, Myanmar, Laos)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <div class="visual-anchor">
+          <!-- REPLACE: this box is reserved for your full-body or
+               professional photo once you have it. Swap this comment and
+               the placeholder text below for:
+               <img src="your-photo.jpg" alt="Lynn Htet Naing" style="width:100%;height:100%;object-fit:cover;"> -->
+          <span>Full-body or professional photo</span>
+        </div>
+      </div>
+      <p class="site-copyright on-dark">&copy; 2026 All rights reserved to Lynn Htet Naing</p>
+    </div>
+  </section>
+
+  <!-- ============ PAGE: PROFILE ============ -->
+  <div id="page-profile" class="page-overlay">
+    <button class="page-back" data-close>← Back to Home</button>
+    <!-- REPLACE: swap in your cover photo here if you want one instead of
+         the flat red block — background-image: linear-gradient(rgba(216,51,42,0.55),
+         rgba(216,51,42,0.55)), url('your-cover-photo.jpg'); background-size: cover;
+         background-position: center; keeps the red identity over a real photo. -->
+    <div class="cover-band"></div>
+    <div class="profile-head">
+      <!-- REPLACE: once you have the studio photo, swap the line below for:
+           <img src="your-photo.jpg" alt="Lynn Htet Naing"> -->
+      <div class="avatar-lg">LP</div>
+      <div class="profile-id">
+        <div class="pname">
+          Lynn Htet Naing <span style="font-weight:400; color: var(--muted); font-size: 0.95rem;">(Peach)</span>
+          <button type="button" id="quickContactBtn" class="quick-contact-btn" aria-label="Quick contact">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="1"/><path d="M2 4l10 8 10-8"/></svg>
+          </button>
+          <div id="quickContactPopover" class="quick-contact-popover">
+            <a href="#" id="emailLinkQuick"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="4" width="20" height="16"/><path d="M2 4l10 8 10-8"/></svg>linn*******.com</a>
+            <a href="#" id="linkedinLinkQuick" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18"/><circle cx="9" cy="9" r="2"/><path d="M7 17v-4c0-1 1-2 2-2s2 1 2 2v4M13 17v-5c0-1 1-2 2.5-2s2.5 1 2.5 2v5"/></svg>LinkedIn</a>
+            <a href="#contactSection" class="quick-contact-more">More contact options ↓</a>
+          </div>
+        </div>
+        <div class="ptitle">Sales &amp; Revenue Executive · OneHotel Co., Ltd.</div>
+      </div>
+    </div>
+    <div class="intro-line">
+      <span>Based in <strong>Bangkok, Thailand</strong></span>
+      <span>Nationality <strong>Myanmar</strong></span>
+      <span class="intro-hang"><span class="intro-hang-label">Building toward</span><strong>Revenue Management /<br class="mobile-break"> IT &amp; Tech Product Management</strong></span>
+      <span class="intro-hang"><span class="intro-hang-label">Open to</span><strong>Relocating to Europe or <span class="full-text">the United States</span><span class="short-text">US</span></strong></span>
+    </div>
+    <div class="page-inner">
+      <div class="bio-box">
+        <span class="bio-section-label">Background</span>
+        <p class="lede">
+          Before any of this, I was part of my family's footwear
+          manufacturing business, where I built a real foundation in how to
+          run a business — quality control, brand and organizational
+          management, and market research into new markets to sell into. We
+          handled production, manufacturing, and distribution all at once,
+          and I managed a team of 25+ people through it. That kind of
+          hands-on micro and SME business experience is the foundation
+          everything else I've done is built on.
+        </p>
+        <p class="lede" style="margin-top: 18px;">
+          When I relocated to Thailand, I moved straight into the hotel
+          industry as a Guest Service Agent, which is where I learned the
+          basics of how a hotel actually runs day to day — front desk
+          operations, handling guest requests and complaints, check-in and
+          check-out flow, and how every department has to connect for things
+          to run smoothly. From there I became a Financial Income Auditor,
+          which is where I actually learned how rates, ADR, and the other
+          core hotel metrics work and why they matter, and where I started
+          getting closer to OTA management. That role also covered
+          condominium leasing, which taught me how long-term rental
+          procedures work. As a Guest Service Supervisor, I managed 70+
+          staff across multiple departments, handled complaint resolution
+          and guest communication, and acted as the person in charge during
+          my working hours — including real, practical emergency and panic
+          situations that had to be controlled in the moment.
+        </p>
+      </div>
+
+      <div class="bio-box" style="margin-top: 20px;">
+        <span class="bio-section-label">Now</span>
+        <p class="lede">
+          Today I work in Hotel Tech Software Sales as a Sales &amp; Revenue
+          Executive. To be clear about what that actually means: I'm not
+          managing a hotel's revenue for them — I'm selling technology and
+          RevBoost's revenue management service, and the actual work is
+          pulling in new clients, building trust, and figuring out what's
+          broken in their business before they've fully seen it themselves.
+          In a first meeting, I'm looking for the pain point — usually some
+          form of revenue leakage, like a rate mismatch across OTA channels
+          or a booking engine that isn't converting — and using that
+          diagnosis to show them exactly where they're losing money and why
+          it's worth fixing. That's the actual skill: not pushing a product,
+          proving there's a real problem first. I'm building experience in
+          the hotel industry day by day, while also staying close to new
+          technology and AI tools so I keep pace with where the industry is
+          heading.
+        </p>
+      </div>
+
+      <div class="bio-box" style="margin-top: 20px;">
+        <span class="bio-section-label">Looking Ahead</span>
+        <p class="lede">
+          Five years from now, I want to be someone known for that
+          combination — real soft skills, real communication, and real
+          technical ability together, not just one of the three.
+        </p>
+      </div>
+      <hr class="bio-divider">
+      <span class="bio-section-label" id="contactSection">Contact</span>
+      <ul class="side-contact side-contact-row">
+        <li><a href="#" id="emailLink"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="4" width="20" height="16"/><path d="M2 4l10 8 10-8"/></svg>linn*******.com</a></li>
+        <li><a href="#" id="linkedinLink" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18"/><circle cx="9" cy="9" r="2"/><path d="M7 17v-4c0-1 1-2 2-2s2 1 2 2v4M13 17v-5c0-1 1-2 2.5-2s2.5 1 2.5 2v5"/></svg>LinkedIn</a></li>
+        <li><a href="#"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3v12M7 10l5 5 5-5M4 19h16"/></svg>Resume (PDF)</a></li>
+      </ul>
+      <div id="phoneGate" class="contact-gate">
+        <span class="contact-gate-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 3h4l2 5-3 2c1 3 3 5 6 6l2-3 5 2v4c0 1-1 2-2 2C10 21 3 14 3 5c0-1 1-2 2-2z"/></svg></span>
+        <span class="contact-gate-label">Phone / WhatsApp — protected from bots</span>
+        <div class="g-recaptcha" data-sitekey="6Lc8iKQtAAAAAEpI1lSkoeKPc3o3kKxfGA0OzLbw" data-callback="onPhoneCaptchaSuccess" data-expired-callback="onPhoneCaptchaExpired"></div>
+        <button type="button" id="phoneRevealBtn" class="contact-gate-btn" disabled>Reveal number</button>
+        <span id="phoneRevealed" style="display: none;"></span>
+      </div>
+      <p class="visa-note" style="font-size: 0.8rem; color: var(--muted); margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--line);">
+        Note: As a Myanmar national, visa sponsorship is required for relocation.
+      </p>
+      <p class="site-copyright">&copy; 2026 All rights reserved to Lynn Htet Naing</p>
+    </div>
+  </div>
+
+  <script>
+    /* Email and LinkedIn are deliberately NOT written in full anywhere in
+       this file's HTML — both links are assembled here at runtime, so a
+       scraper reading the raw page source (the most common way this kind
+       of info gets harvested, usually via the href itself) finds nothing. */
+    (function () {
+      var user = 'linnhtetnaing1811';
+      var domain = 'gmail.com';
+      var liUser = 'lynn-htet-naing-bbb64929a';
+
+      ['emailLink', 'emailLinkQuick'].forEach(function (id) {
+        var el = document.getElementById(id);
+        if (el) el.href = 'mailto:' + user + '@' + domain;
+      });
+      ['linkedinLink', 'linkedinLinkQuick'].forEach(function (id) {
+        var el = document.getElementById(id);
+        if (el) el.href = 'https://www.linkedin.com/in/' + liUser;
+      });
+    })();
+  </script>
+
+  <script>
+    /* Quick-contact popover next to the name — toggle open/closed, close
+       on outside click or when a link inside it is chosen. */
+    (function () {
+      var btn = document.getElementById('quickContactBtn');
+      var popover = document.getElementById('quickContactPopover');
+      if (!btn || !popover) return;
+
+      btn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        popover.classList.toggle('open');
+      });
+      popover.querySelectorAll('a').forEach(function (a) {
+        a.addEventListener('click', function () { popover.classList.remove('open'); });
+      });
+      document.addEventListener('click', function (e) {
+        if (popover.classList.contains('open') && !popover.contains(e.target) && !btn.contains(e.target)) {
+          popover.classList.remove('open');
+        }
+      });
+    })();
+  </script>
+
+  <script>
+    /* Phone/WhatsApp number is deliberately NOT written as plain text
+       anywhere in this file — it's rebuilt from digits only after the
+       visitor completes the Google reCAPTCHA check, so simple scrapers that
+       just read page text (rather than run this script, pass the real
+       CAPTCHA, and click the button) never see it at all.
+
+       One-time reveal, same as Performance Data: leaving this page, the
+       tab, or the browser window relocks it and a fresh reCAPTCHA is
+       required next time — the old completed check isn't reused. */
+    var phoneRevealBtnEl = document.getElementById('phoneRevealBtn');
+
+    function onPhoneCaptchaSuccess() { if (phoneRevealBtnEl) phoneRevealBtnEl.disabled = false; }
+    function onPhoneCaptchaExpired() { if (phoneRevealBtnEl) phoneRevealBtnEl.disabled = true; }
+
+    (function () {
+      var btn = document.getElementById('phoneRevealBtn');
+      var out = document.getElementById('phoneRevealed');
+      var gate = document.getElementById('phoneGate');
+      var pageProfile = document.getElementById('page-profile');
+      if (!btn) return;
+
+      function revealPhone() {
+        var cc = '66';
+        var n = [6, 4, 1, 0, 8, 1, 4, 3, 4];
+        var display = '+' + cc + ' (0) ' + n.slice(0, 3).join('') + '-' + n.slice(3, 6).join('') + '-' + n.slice(6, 9).join('');
+        var full = cc + n.join('');
+        out.innerHTML =
+          '<a href="tel:+' + full + '">' + display + '</a> &middot; ' +
+          '<a href="https://wa.me/' + full + '" target="_blank" rel="noopener">WhatsApp</a>';
+        out.style.display = 'block';
+        gate.querySelector('.g-recaptcha').style.display = 'none';
+        btn.style.display = 'none';
+        gate.querySelector('.contact-gate-label').textContent = 'Phone / WhatsApp';
+      }
+
+      function relockPhone() {
+        if (out.style.display === 'none') return; // wasn't revealed, nothing to do
+        out.style.display = 'none';
+        out.innerHTML = '';
+        gate.querySelector('.g-recaptcha').style.display = 'block';
+        btn.style.display = 'inline-block';
+        btn.disabled = true;
+        gate.querySelector('.contact-gate-label').textContent = 'Phone / WhatsApp — protected from bots';
+        if (window.grecaptcha && window.grecaptcha.reset) window.grecaptcha.reset();
+      }
+      window.lockPhoneReveal = relockPhone;
+
+      btn.addEventListener('click', revealPhone);
+
+      document.addEventListener('visibilitychange', function () {
+        if (document.hidden && pageProfile.classList.contains('open')) relockPhone();
+      });
+      window.addEventListener('blur', function () {
+        if (pageProfile.classList.contains('open')) relockPhone();
+      });
+    })();
+  </script>
+
+  <!-- ============ PAGE: EXPERIENCE ============ -->
+  <div id="page-experience" class="page-overlay">
+    <button class="page-back" data-close>← Back to Home</button>
+    <div class="page-inner page-inner-wide">
+      <h2 style="font-size:1.4rem; margin-bottom:24px;">Experience</h2>
+
+      <div class="job-list">
+        <button class="job-card" data-modal="job-modal-1">
+          <span class="job-role">Sales &amp; Revenue Executive</span>
+          <span class="job-when">2025 — Present</span>
+          <span class="job-company">OneHotel Co., Ltd. (OneHotel.Asia / RevBoost.Asia)</span>
+          <span class="job-location">Bangkok, Thailand</span>
+        </button>
+        <button class="job-card" data-modal="job-modal-2">
+          <span class="job-role">Guest Service Supervisor</span>
+          <span class="job-when">2024 — 2025</span>
+          <span class="job-company">The Quarter Ramkhamhaeng by UHG</span>
+          <span class="job-location">Bangkok, Thailand</span>
+        </button>
+        <button class="job-card" data-modal="job-modal-3">
+          <span class="job-role">Financial Income Auditor</span>
+          <span class="job-when">2023 — 2024</span>
+          <span class="job-company">Ocean View Treasure Residence</span>
+          <span class="job-location">Phuket, Thailand</span>
+        </button>
+        <button class="job-card" data-modal="job-modal-4">
+          <span class="job-role">Guest Service Agent</span>
+          <span class="job-when">2022 — 2023</span>
+          <span class="job-company">Club Mahindra Mac Boutique Suites</span>
+          <span class="job-location">Bangkok, Thailand</span>
+        </button>
+        <button class="job-card" data-modal="job-modal-5">
+          <span class="job-role">Product Management (Family Business)</span>
+          <span class="job-when">2020 — 2022</span>
+          <span class="job-company">One Way Footwear Manufacturing</span>
+          <span class="job-location">Yangon, Myanmar</span>
+        </button>
+      </div>
+      <p class="site-copyright">&copy; 2026 All rights reserved to Lynn Htet Naing</p>
+    </div>
+  </div>
+
+  <!-- Experience detail modals — flip in above whatever page is behind them -->
+  <div class="job-modal-backdrop" id="job-modal-1">
+    <div class="job-modal">
+      <button class="job-modal-close" aria-label="Close">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l16 16M20 4L4 20"/></svg>
+      </button>
+      <h3>Sales &amp; Revenue Executive</h3>
+      <div class="job-modal-meta"><span>2025 — Present</span><span>OneHotel Co., Ltd. (OneHotel.Asia / RevBoost.Asia)</span><span>Bangkok, Thailand</span></div>
+      <ul>
+        <li>Manage B2B sales activities across Thailand and the region — client relationships, negotiations, corporate accounts, and sales presentations against revenue targets.</li>
+        <li>Sell both standalone hotel-tech products (booking engine, channel manager) and the RevBoost revenue management service — closing the latter depends on demonstrating proof of results and reliability during the sales process, not on personally running revenue management.</li>
+        <li>Remain the primary point of contact for signed accounts even after a dedicated revenue manager takes over — hotel owners and GMs often reach out directly, reflecting a relationship that extends beyond the initial sale.</li>
+        <li>Identify potential markets through research and business development, supporting marketing and brand-visibility efforts.</li>
+        <li>Built and maintain a Hotel Database covering 675+ properties across 13 markets, plus a competitor intelligence tracker covering 66 competitors with threat ratings.</li>
+        <li>H1 2026: 78 client meetings, 12 signed properties.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="job-modal-backdrop" id="job-modal-2">
+    <div class="job-modal">
+      <button class="job-modal-close" aria-label="Close">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l16 16M20 4L4 20"/></svg>
+      </button>
+      <h3>Guest Service Supervisor</h3>
+      <div class="job-modal-meta"><span>2024 — 2025</span><span>The Quarter Ramkhamhaeng by UHG</span><span>Bangkok, Thailand</span></div>
+      <ul>
+        <li>Stepped up to management level, overseeing a team of 70+ staff across shift scheduling, performance, and on-the-job training.</li>
+        <li>Joined during the property's pre-opening phase (around 30% complete) and helped carry it through to full 100% operation.</li>
+        <li>Acted as person in charge during working hours, including real emergency and panic situations that required calm, on-the-spot decision-making.</li>
+        <li>Handled guest rebate and refund resolution, plus service-recovery situations, to maintain guest satisfaction.</li>
+        <li>Coordinated across front office, housekeeping, reservations, and maintenance for smooth daily operations.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="job-modal-backdrop" id="job-modal-3">
+    <div class="job-modal">
+      <button class="job-modal-close" aria-label="Close">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l16 16M20 4L4 20"/></svg>
+      </button>
+      <h3>Financial Income Auditor</h3>
+      <div class="job-modal-meta"><span>2023 — 2024</span><span>Ocean View Treasure Residence</span><span>Phuket, Thailand</span></div>
+      <ul>
+        <li>Started on the night shift, learning night-audit fundamentals — reconciling daily room rates against bookings and folios.</li>
+        <li>Grew into broader financial scope: checking daily and monthly revenue across OTA channels, Tax VAT, commission payable, and condominium rental income.</li>
+        <li>Prepared financial reports and monitored transaction discrepancies to support accurate, compliant operations.</li>
+        <li>Collaborated cross-functionally to maintain financial control standards.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="job-modal-backdrop" id="job-modal-4">
+    <div class="job-modal">
+      <button class="job-modal-close" aria-label="Close">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l16 16M20 4L4 20"/></svg>
+      </button>
+      <h3>Guest Service Agent</h3>
+      <div class="job-modal-meta"><span>2022 — 2023</span><span>Club Mahindra Mac Boutique Suites</span><span>Bangkok, Thailand</span></div>
+      <ul>
+        <li>Built the foundational skills of hospitality — customer service, complaint handling, and guest relations — through daily check-in/check-out, reservations, and billing.</li>
+        <li>Resolved guest inquiries and service requests, coordinating across departments as needed.</li>
+        <li>Maintained accurate documentation and supported daily administrative and cashiering duties.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="job-modal-backdrop" id="job-modal-5">
+    <div class="job-modal">
+      <button class="job-modal-close" aria-label="Close">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l16 16M20 4L4 20"/></svg>
+      </button>
+      <h3>Product Management (Family Business)</h3>
+      <div class="job-modal-meta"><span>2020 — 2022</span><span>One Way Footwear Manufacturing</span><span>Yangon, Myanmar</span></div>
+      <ul>
+        <li>Joined the family's footwear manufacturing business to oversee product stability and brand consistency.</li>
+        <li>Managed a team of 25+ employees — a family-business context rather than a traditional corporate structure.</li>
+        <li>Conducted market and competitor research to guide product design, branding, and channel decisions.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ============ PAGE: ACHIEVEMENTS ============ -->
+  <div id="page-achievements" class="page-overlay">
+    <button class="page-back" data-close>← Back to Home</button>
+    <div class="page-inner">
+      <h2 style="font-size:1.4rem; margin-bottom:24px;">Achievements &amp; milestones</h2>
+
+      <div class="milestone-grid">
+        <div class="milestone"><div class="m-num">78</div><div class="m-label">client meetings, H1 2026</div></div>
+        <div class="milestone"><div class="m-num">12</div><div class="m-label">properties signed, H1 2026</div></div>
+        <div class="milestone"><div class="m-num">675+</div><div class="m-label">hotels tracked, 13 markets</div></div>
+        <div class="milestone"><div class="m-num">66</div><div class="m-label">competitors tracked</div></div>
+        <div class="milestone"><div class="m-num">129</div><div class="m-label">properties analyzed, 2025 review</div></div>
+        <div class="milestone"><div class="m-num">~48%</div><div class="m-label">ADR gap diagnosed for a client</div></div>
+        <div class="milestone"><div class="m-num">25+</div><div class="m-label">staff managed, family business</div></div>
+        <div class="milestone"><div class="m-num">70+</div><div class="m-label">staff overseen, Guest Service Supervisor</div></div>
+      </div>
+
+      <div class="case">
+        <div class="case-title">Revenue leak diagnosis for a Bangkok hotel client <!-- REPLACE: real name if comfortable naming it --></div>
+        <p>Parsed OTA booking exports across five channels (Agoda, Booking.com, Expedia, Trip.com, Traveloka) and built a bilingual performance review — channel-by-channel revenue breakdown, year-over-year comparison, and a diagnosis of where the property's average daily rate was leaking value.</p>
+        <div class="result"><strong>Result</strong> — identified a ~48% ADR gap against the client's realistic rate ceiling, delivered as a report the owner could act on directly.</div>
+      </div>
+
+      <div class="case">
+        <div class="case-title">Win-back after a revenue collapse <!-- REPLACE: real name if comfortable naming it --></div>
+        <p>A small property saw revenue drop sharply after a change in channel-manager setup. Diagnosed the cause and built a recovery outreach document to bring the account back.</p>
+        <div class="result"><strong>Result</strong> — addressed an ~85% revenue collapse with a clear, evidence-based recovery pitch.</div>
+      </div>
+
+      <div class="case">
+        <div class="case-title">2025 sales portfolio analysis</div>
+        <p>Analyzed a full year of signed-property data (129 properties) — broken down by portfolio type and monthly recurring revenue — and delivered it as a single branded report used for planning the next year.</p>
+      </div>
+
+      <div class="case">
+        <div class="case-title">Emergency &amp; crisis response leadership</div>
+        <p>As Guest Service Supervisor and person in charge during working hours, handled real emergency and panic situations requiring immediate, calm decision-making — coordinating staff and guest communication under pressure, following safety procedure rather than improvising.</p>
+        <div class="result"><strong>Result</strong> — managed high-stakes situations without incident escalation, then handled the guest rebate and refund process that followed.</div>
+      </div>
+      <p class="site-copyright">&copy; 2026 All rights reserved to Lynn Htet Naing</p>
+    </div>
+  </div>
+
+  <!-- ============ PAGE: SKILLS ============ -->
+  <div id="page-skills" class="page-overlay">
+    <button class="page-back" data-close>← Back to Home</button>
+    <div class="page-inner">
+      <h2 style="font-size:1.4rem; margin-bottom:24px;">Skills</h2>
+      <div class="chip-row" style="margin-top:0;">
+        <span class="chip">B2B sales &amp; negotiation</span>
+        <span class="chip">Revenue analysis &amp; diagnostics</span>
+        <span class="chip">Financial auditing &amp; reconciliation</span>
+        <span class="chip">Market &amp; competitor research</span>
+        <span class="chip">Team leadership (70+ staff)</span>
+        <span class="chip">Emergency &amp; crisis management</span>
+        <span class="chip">Pre-opening &amp; property launch</span>
+        <span class="chip">Commercial documentation</span>
+        <span class="chip">Guest communication &amp; complaint resolution</span>
+        <span class="chip">Quality control &amp; brand management</span>
+        <span class="chip">Production &amp; distribution oversight</span>
+        <span class="chip">Condominium / long-term leasing</span>
+      </div>
+
+      <h3 style="font-size:1rem; margin: 32px 0 14px;">Technology &amp; AI</h3>
+      <div class="chip-row" style="margin-top:0;">
+        <span class="chip">AI tools for research &amp; sales enablement</span>
+        <span class="chip">AI-assisted workflows &amp; prompt writing</span>
+        <span class="chip">Data analysis &amp; reporting</span>
+        <span class="chip">Web development fundamentals — in progress</span>
+      </div>
+
+      <h3 style="font-size:1rem; margin: 32px 0 14px;">Multi-System Management</h3>
+      <div class="chip-row" style="margin-top:0;">
+        <span class="chip">Property Management System (PMS)</span>
+        <span class="chip">Revenue Management System</span>
+        <span class="chip">Point of Sale (POS) System</span>
+        <span class="chip">Sales System / CRM</span>
+        <span class="chip">Channel Manager</span>
+        <span class="chip">Booking Engine</span>
+        <span class="chip">Payment Gateway</span>
+        <span class="chip">Hotel database management (self-built)</span>
+        <span class="chip">Competitor intelligence tracking</span>
+      </div>
+
+      <h3 style="font-size:1rem; margin: 32px 0 14px;">Soft Skills</h3>
+      <div class="chip-row" style="margin-top:0;">
+        <span class="chip">Leadership</span>
+        <span class="chip">Cross-cultural communication</span>
+        <span class="chip">Client relationship building &amp; trust</span>
+        <span class="chip">Problem-solving under pressure</span>
+        <span class="chip">Critical thinking</span>
+        <span class="chip">Attention to detail</span>
+        <span class="chip">Adaptability across roles &amp; industries</span>
+        <span class="chip">Time management</span>
+        <span class="chip">Multi-tasking</span>
+      </div>
+
+      <h3 style="font-size:1rem; margin: 32px 0 14px;">OTA channels managed</h3>
+      <div class="chip-row" style="margin-top:0;">
+        <span class="chip">Agoda</span>
+        <span class="chip">Booking.com</span>
+        <span class="chip">Trip.com (Ctrip)</span>
+        <span class="chip">Expedia</span>
+        <span class="chip">Airbnb</span>
+        <span class="chip">Traveloka</span>
+        <span class="chip">Ticket.com</span>
+        <span class="chip">MakeMyTrip / Goibibo</span>
+        <span class="chip">Rakuten</span>
+        <span class="chip">Hostelworld</span>
+        <span class="chip">Hotelbeds</span>
+      </div>
+
+      <!-- REPLACE: Property Management Systems (PMS) — waiting on your
+           confirmation of which ones are professional/hands-on level
+           before adding this subsection. -->
+      <p class="site-copyright">&copy; 2026 All rights reserved to Lynn Htet Naing</p>
+    </div>
+  </div>
+
+  <!-- ============ PAGE: QUALIFICATIONS ============ -->
+  <div id="page-qualifications" class="page-overlay">
+    <button class="page-back" data-close>← Back to Home</button>
+    <div class="page-inner">
+      <h2 style="font-size:1.4rem; margin-bottom:28px;">Languages &amp; qualifications</h2>
+
+      <h3 style="font-size:1rem; margin-bottom:14px;">Languages</h3>
+      <div class="qual-list">
+        <div class="qual-item"><span class="qual-name">Burmese</span><span class="qual-status">Native</span></div>
+        <div class="qual-item"><span class="qual-name">English</span><span class="qual-status">Fluent</span></div>
+        <div class="qual-item"><span class="qual-name">Thai</span><span class="qual-status" style="color: var(--muted);"><!-- REPLACE: confirm level -->Conversational</span></div>
+        <div class="qual-item"><span class="qual-name">Chinese</span><span class="qual-status">Studying</span></div>
+        <div class="qual-item"><span class="qual-name">German</span><span class="qual-status">Studying</span></div>
+      </div>
+
+      <!-- To make this visible again, just remove style="display:none"
+           from the div below, and fill in your real degree(s)/school(s)
+           in place of the placeholder text. -->
+      <div style="display:none;">
+        <h3 style="font-size:1rem; margin-bottom:14px; margin-top:36px;">Education &amp; certifications</h3>
+        <div class="qual-list">
+          <div class="qual-item"><span class="qual-name">[Degree]</span><span class="qual-status" style="color: var(--muted);">[School]</span></div>
+        </div>
+      </div>
+      <p class="site-copyright">&copy; 2026 All rights reserved to Lynn Htet Naing</p>
+    </div>
+  </div>
+
+  <!-- ============ PAGE: PERFORMANCE DATA ============ -->
+  <div id="page-performance" class="page-overlay">
+    <button class="page-back" data-close>← Back to Home</button>
+    <div class="page-inner page-inner-wide perf-page">
+      <div class="perf-header">
+        <div class="perf-radar-badge">
+          <span class="perf-radar-dot">
+            <span class="perf-radar-ring"></span>
+            <span class="perf-radar-ring perf-radar-ring-2"></span>
+          </span>
+          LIVE DATA
+        </div>
+        <h2 class="perf-title">Performance Data</h2>
+      </div>
+      <div class="perf-ticker">
+        <div class="perf-ticker-track">LIVE PERFORMANCE DATA &nbsp;—&nbsp; VIEW ONLY, DO NOT DISTRIBUTE &nbsp;—&nbsp; LIVE PERFORMANCE DATA &nbsp;—&nbsp; VIEW ONLY, DO NOT DISTRIBUTE &nbsp;—&nbsp;</div>
+      </div>
+
+      <!-- Locked view, shown until a viewer submits the access-request form -->
+      <div id="perfGate" class="perf-gate">
+        <p class="lede" style="margin: 0 auto 18px;">
+          A working view of my real monthly output — meetings, signings, and
+          revenue managed — shown at the property level without client names,
+          out of confidentiality for the businesses I work with.
+        </p>
+
+        <details class="perf-tc">
+          <summary>Terms &amp; Conditions — please read before requesting access</summary>
+          <div class="perf-tc-body">
+            <p><strong>1. Nature of this data.</strong> The figures on this page are performance summaries I compiled. Property names have been anonymized and, where marked, sample data is shown in place of real records. This page is provided for demonstration and reference only — it is not audited, and it is not intended to support any business, investment, or financial decision.</p>
+            <p><strong>2. Confidentiality — view only, no redistribution.</strong> By requesting access, you agree to view this information for your own reference only. You agree not to copy, screenshot, record, download, publish, republish, or share this data — or any part of it — with any third party, in any form. Note: I cannot technically prevent a screenshot or screen recording — this is a stated condition of access, not a technical restriction, and I treat it as binding regardless.</p>
+            <p><strong>3. Ownership.</strong> The data, layout, and structure of this page are my own work product. Nothing here grants you a license to reuse, adapt, or redistribute it.</p>
+            <p><strong>4. Your information, and how I use it.</strong> The name, phone, email, organization, and position you submit are collected solely so I know who has requested access and can follow up if useful. I will not sell this information, share it with third parties, or use it for marketing. I keep it only as long as reasonably needed for that purpose.</p>
+            <p><strong>5. No warranty.</strong> This data is provided "as is," without guarantee of completeness or accuracy, and I accept no liability for decisions made based on it.</p>
+            <p><strong>6. Breach of these terms.</strong> Access is granted on the basis of these terms. Misuse — including redistribution of this data — may result in that access being treated as revoked, and, where real confidential business data is involved, may carry legal consequences beyond this page.</p>
+            <p>By checking "I agree" and submitting the form, you confirm you have read and accept these terms.</p>
+          </div>
+        </details>
+
+        <button id="perfRequestBtn" class="perf-apply" type="button">Request Access to View</button>
+      </div>
+
+      <!-- Shown while waiting for manual approval -->
+      <div id="perfWaiting" class="perf-gate" style="display: none;">
+        <p class="lede" style="margin: 0 auto 8px;">Request sent — waiting for approval.</p>
+        <p style="color: var(--muted); font-size: 0.9rem;">This page checks automatically every few seconds. No need to refresh.</p>
+        <p style="color: var(--muted); font-size: 0.85rem; margin-top: 14px;">It's fine to switch tabs or refresh while waiting — your request stays pending. Closing this tab completely will end it, and you'll need to submit again.</p>
+      </div>
+
+      <!-- Shown if the request is denied -->
+      <div id="perfDenied" class="perf-gate" style="display: none;">
+        <p class="lede" style="margin: 0 auto;">Access request declined.</p>
+      </div>
+
+      <!-- Unlocked content -->
+      <div id="perfContent" style="display: none;">
+        <div class="perf-badge">
+          Sample data shown below — real figures coming soon
+          <!-- REPLACE: remove this badge once perfData holds your real records. -->
+        </div>
+        <p class="lede" style="margin: 14px auto 28px;">
+          Filter by property and market. Properties are shown as anonymized
+          labels rather than names.
+          <!-- REPLACE: the dataset below is sample data — swap the
+               perfData array in the script near the bottom of this file
+               for your real records once you have them. -->
+        </p>
+
+        <div class="perf-filters">
+          <div class="perf-field">
+            <label for="perfHotel">Property</label>
+            <select id="perfHotel"></select>
+          </div>
+          <div class="perf-field">
+            <label for="perfArea">Area / Market</label>
+            <select id="perfArea"></select>
+          </div>
+          <div class="perf-field">
+            <label for="perfFrom">Added from</label>
+            <input type="month" id="perfFrom">
+          </div>
+          <div class="perf-field">
+            <label for="perfTo">Added to</label>
+            <input type="month" id="perfTo">
+          </div>
+          <button id="perfApply" class="perf-apply">Apply filters</button>
+        </div>
+
+        <div id="perfSummary" class="perf-summary"></div>
+        <div id="perfResults" class="perf-results"></div>
+      </div>
+      <p class="site-copyright" style="margin-top: 0;">&copy; 2026 All rights reserved to Lynn Htet Naing</p>
+    </div>
+  </div>
+
+  <!-- Access-request modal -->
+  <div class="job-modal-backdrop" id="perfAccessModal">
+    <div class="job-modal" style="max-width: 460px;">
+      <button class="job-modal-close" aria-label="Close">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l16 16M20 4L4 20"/></svg>
+      </button>
+      <h3>Request Access</h3>
+      <p class="perf-terms">
+        Please review the Terms &amp; Conditions on the previous page before
+        continuing. Submitting this form confirms your agreement to them.
+      </p>
+      <div class="perf-form">
+        <input type="text" id="perfName" placeholder="Full name">
+        <div class="perf-phone-row">
+          <select id="perfPhoneCode">
+            <option value="+66">+66 Thailand</option>
+            <option value="+95">+95 Myanmar</option>
+            <option value="+1">+1 US / Canada</option>
+            <option value="+44">+44 UK</option>
+            <option value="+49">+49 Germany</option>
+            <option value="+33">+33 France</option>
+            <option value="+31">+31 Netherlands</option>
+            <option value="+34">+34 Spain</option>
+            <option value="+39">+39 Italy</option>
+            <option value="+86">+86 China</option>
+            <option value="+91">+91 India</option>
+            <option value="+65">+65 Singapore</option>
+            <option value="+60">+60 Malaysia</option>
+            <option value="+81">+81 Japan</option>
+            <option value="+82">+82 South Korea</option>
+            <option value="+61">+61 Australia</option>
+          </select>
+          <input type="tel" id="perfPhone" placeholder="Phone number">
+        </div>
+        <input type="email" id="perfEmail" placeholder="Email">
+        <input type="text" id="perfOrg" placeholder="Organization">
+        <input type="text" id="perfPosition" placeholder="Position">
+
+        <select id="perfHow">
+          <option value="">How did you find this page?</option>
+          <option value="Recruitment">Recruitment</option>
+          <option value="Personal Reference">Personal Reference</option>
+          <option value="Reference by Third Party">Reference by Third Party</option>
+          <option value="LinkedIn">LinkedIn</option>
+          <option value="Company/Employer Referral">Company/Employer Referral</option>
+          <option value="Job Board">Job Board</option>
+          <option value="Networking Event / Conference">Networking Event / Conference</option>
+          <option value="Google">Just Found on Google</option>
+          <option value="Other">Other</option>
+        </select>
+        <input type="text" id="perfHowOther" placeholder="Please specify" style="display: none;">
+
+        <textarea id="perfDescription" rows="3" placeholder="Tell me a bit about yourself or why you're here"></textarea>
+
+        <label class="perf-agree"><input type="checkbox" id="perfAgree"> I have read and agree to the Terms &amp; Conditions</label>
+        <p id="perfFormError" class="perf-form-error" style="display: none;"></p>
+        <button id="perfSubmitBtn" class="perf-apply" type="button">Submit &amp; View</button>
+      </div>
+    </div>
+  </div>
+
+  <button id="navToggle" class="nav-toggle" aria-label="Open menu" aria-expanded="false">
+    <span class="hamburger-lines">
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+    </span>
+    <span class="nav-toggle-label">Menu</span>
+  </button>
+  <div id="navBackdrop" class="nav-backdrop"></div>
+  <nav id="navPanel" class="nav-panel">
+    <button class="menu-item" data-target="page-profile">Profile</button>
+    <button class="menu-item" data-target="page-experience">Experience</button>
+    <button class="menu-item" data-target="page-achievements">Achievements</button>
+    <button class="menu-item" data-target="page-skills">Skills</button>
+    <button class="menu-item" data-target="page-qualifications">Qualifications</button>
+    <button class="menu-item" data-target="page-performance">Performance</button>
+  </nav>
+
+<script>
+  var perfData = [
+    /* REPLACE: sample data — swap for your real records once you have them.
+       databaseAdded: the month the property was added to your database.
+       mrr in THB; revenueDrivePct: annual revenue growth you drove, as a %.
+       Property labels are anonymized on purpose — keep it that way for
+       any real client data unless you have their explicit sign-off. */
+    { hotel: 'Property A', area: 'Bangkok', databaseAdded: '2026-01', meetings: 18, signed: 1, mrr: 12500, revenueDrivePct: 12.4 },
+    { hotel: 'Property B', area: 'Phuket', databaseAdded: '2026-01', meetings: 11, signed: 1, mrr: 9500, revenueDrivePct: 8.1 },
+    { hotel: 'Property C', area: 'Chiang Mai', databaseAdded: '2026-02', meetings: 14, signed: 1, mrr: 7500, revenueDrivePct: 15.7 },
+    { hotel: 'Property D', area: 'Pattaya', databaseAdded: '2026-02', meetings: 9, signed: 0, mrr: 6200, revenueDrivePct: 6.9 }
+  ];
+
+  (function () {
+    var hotelSelect = document.getElementById('perfHotel');
+    var areaSelect = document.getElementById('perfArea');
+    var fromInput = document.getElementById('perfFrom');
+    var toInput = document.getElementById('perfTo');
+    var applyBtn = document.getElementById('perfApply');
+    var summaryEl = document.getElementById('perfSummary');
+    var resultsEl = document.getElementById('perfResults');
+    if (!hotelSelect || !resultsEl) return;
+
+    var hotels = [];
+    var areas = [];
+    perfData.forEach(function (row) {
+      if (hotels.indexOf(row.hotel) === -1) hotels.push(row.hotel);
+      if (areas.indexOf(row.area) === -1) areas.push(row.area);
+    });
+
+    var allHotelOpt = document.createElement('option');
+    allHotelOpt.value = 'all'; allHotelOpt.textContent = 'All Properties';
+    hotelSelect.appendChild(allHotelOpt);
+    hotels.forEach(function (h) {
+      var o = document.createElement('option'); o.value = h; o.textContent = h;
+      hotelSelect.appendChild(o);
+    });
+
+    var allAreaOpt = document.createElement('option');
+    allAreaOpt.value = 'all'; allAreaOpt.textContent = 'All Areas';
+    areaSelect.appendChild(allAreaOpt);
+    areas.forEach(function (a) {
+      var o = document.createElement('option'); o.value = a; o.textContent = a;
+      areaSelect.appendChild(o);
+    });
+
+    var addedDates = perfData.map(function (r) { return r.databaseAdded; });
+    fromInput.value = addedDates.reduce(function (a, b) { return b < a ? b : a; });
+    toInput.value = addedDates.reduce(function (a, b) { return b > a ? b : a; });
+
+    function formatNum(n) { return n.toLocaleString('en-US'); }
+
+    function filterRows() {
+      var hotel = hotelSelect.value;
+      var area = areaSelect.value;
+      var from = fromInput.value;
+      var to = toInput.value;
+      return perfData.filter(function (r) {
+        var inHotel = hotel === 'all' || r.hotel === hotel;
+        var inArea = area === 'all' || r.area === area;
+        var inRange = (!from || r.databaseAdded >= from) && (!to || r.databaseAdded <= to);
+        return inHotel && inArea && inRange;
+      });
+    }
+
+    var lastRows = [];
+
+    function render() {
+      var rows = filterRows();
+      lastRows = rows.slice();
+
+      var totalMeetings = rows.reduce(function (s, r) { return s + r.meetings; }, 0);
+      var totalSigned = rows.reduce(function (s, r) { return s + r.signed; }, 0);
+      var totalMrr = rows.reduce(function (s, r) { return s + r.mrr; }, 0);
+      var avgDrive = rows.length ? rows.reduce(function (s, r) { return s + r.revenueDrivePct; }, 0) / rows.length : 0;
+
+      summaryEl.innerHTML =
+        '<div class="value-card"><div class="value-num">' + rows.length + '</div><div class="value-label">Properties Matched</div></div>' +
+        '<div class="value-card"><div class="value-num">' + totalMeetings + '</div><div class="value-label">Meetings Held</div></div>' +
+        '<div class="value-card"><div class="value-num">' + totalSigned + '</div><div class="value-label">Properties Signed</div></div>' +
+        '<div class="value-card"><div class="value-num">฿' + formatNum(totalMrr) + '</div><div class="value-label">MRR Earned</div></div>' +
+        '<div class="value-card"><div class="value-num">' + avgDrive.toFixed(1) + '%</div><div class="value-label">Avg. Annual Revenue Drive</div></div>';
+
+      resultsEl.innerHTML = rows.map(function (r) {
+        return '<div class="perf-row">' +
+          '<div class="perf-row-name">' + r.hotel + '</div>' +
+          '<div class="perf-row-fields">' +
+            '<span><strong>Area/Market</strong>' + r.area + '</span>' +
+            '<span><strong>Database Added</strong>' + r.databaseAdded + '</span>' +
+            '<span><strong>Meetings Held</strong>' + r.meetings + '</span>' +
+            '<span><strong>Signed</strong>' + (r.signed ? 'Yes' : 'No') + '</span>' +
+            '<span><strong>MRR Earned</strong>฿' + formatNum(r.mrr) + '</span>' +
+            '<span><strong>Annual Revenue Drive</strong>' + r.revenueDrivePct.toFixed(1) + '%</span>' +
+          '</div>' +
+        '</div>';
+      }).join('');
+    }
+
+    applyBtn.addEventListener('click', render);
+
+    var gateEl = document.getElementById('perfGate');
+    var waitingEl = document.getElementById('perfWaiting');
+    var deniedEl = document.getElementById('perfDenied');
+    var contentEl = document.getElementById('perfContent');
+    var accessModal = document.getElementById('perfAccessModal');
+    var requestBtn = document.getElementById('perfRequestBtn');
+    var submitBtn = document.getElementById('perfSubmitBtn');
+    var pagePerformance = document.getElementById('page-performance');
+    var pollTimer = null;
+
+    /* Google Apps Script Web App — deployed, connected to the Requests Sheet */
+    var gasUrl = 'https://script.google.com/macros/s/AKfycbxOyWIqAaqQIKaeLGniEAT-lx_XIUtUjxNy2eHvxULH_V28-D27TMRp_v1EFtL3KcLr/exec';
+
+    function showOnly(el) {
+      [gateEl, waitingEl, deniedEl, contentEl].forEach(function (e) { e.style.display = 'none'; });
+      el.style.display = 'block';
+    }
+
+    function unlockPerformance() {
+      if (pollTimer) { clearInterval(pollTimer); pollTimer = null; }
+      sessionStorage.removeItem('perfPendingToken');
+      showOnly(contentEl);
+      render();
+    }
+
+    /* One-time access only ONCE GRANTED: after the viewer is actually
+       viewing the unlocked data, leaving this tab, switching apps, or
+       losing focus re-locks it and they must request again. This does
+       NOT apply while a request is still pending — see pollForApproval,
+       which survives a refresh or tab switch on purpose. */
+    function lockPerformance() {
+      if (pollTimer) { clearInterval(pollTimer); pollTimer = null; }
+      sessionStorage.removeItem('perfPendingToken');
+      showOnly(gateEl);
+    }
+    window.lockPerformancePage = lockPerformance;
+
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden && contentEl.style.display === 'block') lockPerformance();
+    });
+    window.addEventListener('blur', function () {
+      if (contentEl.style.display === 'block') lockPerformance();
+    });
+
+    function pollForApproval(token) {
+      sessionStorage.setItem('perfPendingToken', token);
+      showOnly(waitingEl);
+      pollTimer = setInterval(function () {
+        fetch(gasUrl + '?token=' + encodeURIComponent(token))
+          .then(function (r) { return r.json(); })
+          .then(function (data) {
+            if (data.status === 'Approved') { unlockPerformance(); }
+            else if (data.status === 'Denied') {
+              clearInterval(pollTimer); pollTimer = null;
+              sessionStorage.removeItem('perfPendingToken');
+              showOnly(deniedEl);
+            }
+            /* status === 'Pending' or 'NotFound' — keep waiting */
+          })
+          .catch(function () { /* network hiccup — try again next tick */ });
+      }, 4000);
+    }
+
+    /* Resume a pending request if the visitor refreshed or switched tabs
+       while waiting — their request is not lost. */
+    var storedToken = sessionStorage.getItem('perfPendingToken');
+    if (storedToken && gasUrl !== 'YOUR_APPS_SCRIPT_URL') pollForApproval(storedToken);
+
+    requestBtn.addEventListener('click', function () { openJobModal(accessModal); });
+
+    var errorEl = document.getElementById('perfFormError');
+    function showFormError(msg) {
+      errorEl.textContent = msg;
+      errorEl.style.display = 'block';
+    }
+
+    var howSelect = document.getElementById('perfHow');
+    var howOtherInput = document.getElementById('perfHowOther');
+    howSelect.addEventListener('change', function () {
+      howOtherInput.style.display = howSelect.value === 'Other' ? 'block' : 'none';
+      if (howSelect.value !== 'Other') howOtherInput.value = '';
+    });
+
+    submitBtn.addEventListener('click', function () {
+      var name = document.getElementById('perfName').value.trim();
+      var phoneCode = document.getElementById('perfPhoneCode').value;
+      var phoneRaw = document.getElementById('perfPhone').value.trim();
+      var phoneDigits = phoneRaw.replace(/\D/g, '');
+      var email = document.getElementById('perfEmail').value.trim();
+      var org = document.getElementById('perfOrg').value.trim();
+      var position = document.getElementById('perfPosition').value.trim();
+      var how = howSelect.value;
+      var howOther = howOtherInput.value.trim();
+      var description = document.getElementById('perfDescription').value.trim();
+      var agree = document.getElementById('perfAgree').checked;
+
+      errorEl.style.display = 'none';
+
+      if (!name) { showFormError('Please enter your name.'); return; }
+
+      /* Digit-count check rather than a fixed length, since valid national
+         phone numbers run 6–12 digits depending on the country/region. */
+      if (phoneDigits.length < 6 || phoneDigits.length > 12) {
+        showFormError('Please enter a valid phone number for the selected region.');
+        return;
+      }
+
+      /* Real email format check — requires an "@" and a proper domain with
+         a top-level extension (.com, .org, .co.th, etc.), not literally
+         just ".com", since plenty of real emails don't end in .com. */
+      var emailPattern = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/;
+      if (!emailPattern.test(email)) {
+        showFormError('Please enter a valid email address (e.g. name@example.com).');
+        return;
+      }
+
+      if (!how) { showFormError('Please select how you found this page.'); return; }
+      if (how === 'Other' && !howOther) {
+        showFormError('Please specify how you found this page.');
+        return;
+      }
+      if (!description) {
+        showFormError('Please write a short note about yourself or why you\'re here.');
+        return;
+      }
+
+      if (!agree) { showFormError('Please accept the Terms & Conditions to continue.'); return; }
+
+      var phone = phoneCode + ' ' + phoneRaw;
+      var howFinal = how === 'Other' ? howOther : how;
+      var payload = {
+        name: name, phone: phone, email: email, organization: org, position: position,
+        howFound: howFinal, description: description
+      };
+
+      closeJobModal(accessModal);
+
+      if (gasUrl === 'YOUR_APPS_SCRIPT_URL') {
+        /* Apps Script not configured yet — fall back to immediate access
+           so the page still works while you finish setup. */
+        unlockPerformance();
+        return;
+      }
+
+      fetch(gasUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain' }, // avoids a CORS preflight against Apps Script
+        body: JSON.stringify(payload)
+      })
+        .then(function (r) { return r.json(); })
+        .then(function (data) { pollForApproval(data.token); })
+        .catch(function () { unlockPerformance(); /* Apps Script unreachable — don't strand the visitor */ });
+    });
+
+    render();
+  })();
+</script>
+
+<script>
+  (function () {
+    var toggle = document.getElementById('navToggle');
+    var panel = document.getElementById('navPanel');
+    var backdrop = document.getElementById('navBackdrop');
+    if (!toggle || !panel) return;
+
+    function closeNav() {
+      panel.classList.remove('open');
+      backdrop.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+    }
+
+    toggle.addEventListener('click', function () {
+      var isOpen = panel.classList.toggle('open');
+      backdrop.classList.toggle('open', isOpen);
+      toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+
+    panel.querySelectorAll('.menu-item').forEach(function (btn) {
+      btn.addEventListener('click', closeNav);
+    });
+
+    backdrop.addEventListener('click', closeNav);
+  })();
+</script>
+
+<script>
+  function updateNavToggleTheme() {
+    var toggle = document.getElementById('navToggle');
+    var anyPageOpen = document.querySelector('.page-overlay.open');
+    if (toggle) toggle.classList.toggle('on-dark', !anyPageOpen);
+  }
+
+  function getElementOrigin(el) {
+    if (!el) return null;
+    var rect = el.getBoundingClientRect();
+    return {
+      x: ((rect.left + rect.width / 2) / window.innerWidth * 100).toFixed(1) + '%',
+      y: ((rect.top + rect.height / 2) / window.innerHeight * 100).toFixed(1) + '%'
+    };
+  }
+
+  function closePageOverlay(overlay, ox, oy) {
+    if (ox) overlay.style.setProperty('--ox', ox);
+    if (oy) overlay.style.setProperty('--oy', oy);
+    overlay.classList.remove('open');
+    if (overlay.id === 'page-performance' && window.lockPerformancePage) window.lockPerformancePage();
+    if (overlay.id === 'page-profile' && window.lockPhoneReveal) window.lockPhoneReveal();
+    updateNavToggleTheme();
+  }
+
+  document.querySelectorAll('.menu-item').forEach(function (btn) {
+    btn.addEventListener('click', function (e) {
+      var target = document.getElementById(btn.getAttribute('data-target'));
+      var toggle = document.getElementById('navToggle');
+      var clickOrigin = {
+        x: (e.clientX / window.innerWidth * 100).toFixed(1) + '%',
+        y: (e.clientY / window.innerHeight * 100).toFixed(1) + '%'
+      };
+
+      var currentlyOpen = document.querySelector('.page-overlay.open');
+      var switchingPages = currentlyOpen && currentlyOpen !== target;
+
+      var openOrigin = getElementOrigin(toggle) || clickOrigin;
+      target.style.setProperty('--ox', openOrigin.x);
+      target.style.setProperty('--oy', openOrigin.y);
+
+      if (switchingPages) {
+        /* Direct switch, not close-then-open: the new page opens on top
+           of the old one (forced above it regardless of DOM order), so
+           its growing circle covers the old page directly — the main
+           cover behind everything is never exposed mid-transition. The
+           old page is only removed once the new one has fully covered
+           the screen. */
+        target.style.zIndex = 51;
+      }
+
+      target.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      target.scrollTop = 0;
+      updateNavToggleTheme();
+      if (target.id === 'page-experience') {
+        var jobList = target.querySelector('.job-list');
+        jobList.classList.remove('animate');
+        void jobList.offsetWidth;
+        jobList.classList.add('animate');
+      }
+
+      if (switchingPages) {
+        setTimeout(function () {
+          currentlyOpen.classList.remove('open');
+          if (currentlyOpen.id === 'page-performance' && window.lockPerformancePage) window.lockPerformancePage();
+          if (currentlyOpen.id === 'page-profile' && window.lockPhoneReveal) window.lockPhoneReveal();
+          target.style.zIndex = '';
+        }, 650);
+      }
+    });
+  });
+  document.querySelectorAll('[data-close]').forEach(function (btn) {
+    btn.addEventListener('click', function (e) {
+      var overlay = btn.closest('.page-overlay');
+      var ox = (e.clientX / window.innerWidth * 100).toFixed(1) + '%';
+      var oy = (e.clientY / window.innerHeight * 100).toFixed(1) + '%';
+      closePageOverlay(overlay, ox, oy);
+      document.body.style.overflow = '';
+    });
+  });
+  updateNavToggleTheme();
+
+  /* Per-section page tracking for Google Analytics only. This is a
+     single-page site — switching sections never reloads the page or
+     changes the URL, so GA wouldn't otherwise register these as
+     separate views. Sends a proper page_view event per section so your
+     GA dashboard shows real per-page traffic (Profile vs. Experience
+     vs. Skills...), not just one combined "1 visit" total.
+     (The earlier version of this also logged visits to your Google
+     Sheet via Apps Script — removed, since a deployment mix-up there
+     was misrouting these as fake Performance Data access requests.
+     Analytics alone covers what you actually wanted.) */
+  (function () {
+    function logVisit(page) {
+      if (window.gtag) {
+        gtag('event', 'page_view', {
+          page_title: page,
+          page_path: '/' + page.toLowerCase().replace(/\s+/g, '-')
+        });
+      }
+    }
+
+    logVisit('Home / Cover');
+
+    document.querySelectorAll('.menu-item').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        logVisit(btn.textContent.trim());
+      });
+    });
+  })();
+
+  function openJobModal(modal) {
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeJobModal(modal) {
+    modal.classList.remove('open');
+    if (!document.querySelector('.job-modal-backdrop.open')) {
+      document.body.style.overflow = '';
+    }
+  }
+  document.querySelectorAll('.job-card').forEach(function (card) {
+    card.addEventListener('click', function (e) {
+      var modal = document.getElementById(card.getAttribute('data-modal'));
+      var ox = (e.clientX / window.innerWidth * 100).toFixed(1) + '%';
+      var oy = (e.clientY / window.innerHeight * 100).toFixed(1) + '%';
+      modal.style.setProperty('--ox', ox);
+      modal.style.setProperty('--oy', oy);
+      openJobModal(modal);
+    });
+  });
+  document.querySelectorAll('.job-modal-close').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      closeJobModal(btn.closest('.job-modal-backdrop'));
+    });
+  });
+  document.querySelectorAll('.job-modal-backdrop').forEach(function (backdrop) {
+    backdrop.addEventListener('click', function (e) {
+      if (e.target === backdrop) closeJobModal(backdrop);
+    });
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+      var openModal = document.querySelector('.job-modal-backdrop.open');
+      if (openModal) closeJobModal(openModal);
+    }
+  });
+
+  (function () {
+    var canvas = document.getElementById('cover-network');
+    var cover = document.getElementById('cover');
+    if (!canvas || !cover) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    var ctx = canvas.getContext('2d');
+    var particles = [];
+    var mouse = { x: null, y: null };
+    var COUNT = 45;
+    var LINK_DIST = 130;
+    var MOUSE_DIST = 170;
+
+    function hexToRgb(hex) {
+      var m = hex.trim().replace('#', '');
+      var r = parseInt(m.substring(0, 2), 16);
+      var g = parseInt(m.substring(2, 4), 16);
+      var b = parseInt(m.substring(4, 6), 16);
+      return r + ',' + g + ',' + b;
+    }
+    var accentRgb = hexToRgb(getComputedStyle(document.documentElement).getPropertyValue('--accent') || '#D8332A');
+
+    function resize() {
+      canvas.width = cover.offsetWidth;
+      canvas.height = cover.offsetHeight;
+    }
+    function init() {
+      resize();
+      particles = [];
+      for (var i = 0; i < COUNT; i++) {
+        particles.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          vx: (Math.random() - 0.5) * 0.25,
+          vy: (Math.random() - 0.5) * 0.25
+        });
+      }
+    }
+    function step() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      var i, j, p, a, b, dx, dy, dist;
+
+      for (i = 0; i < particles.length; i++) {
+        p = particles[i];
+        p.x += p.vx; p.y += p.vy;
+        if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+        if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+      }
+
+      for (i = 0; i < particles.length; i++) {
+        for (j = i + 1; j < particles.length; j++) {
+          a = particles[i]; b = particles[j];
+          dx = a.x - b.x; dy = a.y - b.y;
+          dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < LINK_DIST) {
+            ctx.beginPath();
+            ctx.moveTo(a.x, a.y);
+            ctx.lineTo(b.x, b.y);
+            ctx.strokeStyle = 'rgba(245,245,243,' + (0.18 * (1 - dist / LINK_DIST)) + ')';
+            ctx.lineWidth = 1;
+            ctx.stroke();
+          }
+        }
+        if (mouse.x !== null) {
+          dx = particles[i].x - mouse.x; dy = particles[i].y - mouse.y;
+          dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < MOUSE_DIST) {
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(mouse.x, mouse.y);
+            ctx.strokeStyle = 'rgba(' + accentRgb + ',' + (0.4 * (1 - dist / MOUSE_DIST)) + ')';
+            ctx.lineWidth = 1;
+            ctx.stroke();
+          }
+        }
+      }
+
+      for (i = 0; i < particles.length; i++) {
+        p = particles[i];
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, 1.6, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(245,245,243,0.55)';
+        ctx.fill();
+      }
+
+      requestAnimationFrame(step);
+    }
+
+    cover.addEventListener('mousemove', function (e) {
+      var rect = canvas.getBoundingClientRect();
+      mouse.x = e.clientX - rect.left;
+      mouse.y = e.clientY - rect.top;
+    });
+    cover.addEventListener('mouseleave', function () {
+      mouse.x = null; mouse.y = null;
+    });
+    window.addEventListener('resize', init);
+
+    init();
+    requestAnimationFrame(step);
+  })();
+</script>
+
+</body>
+</html>
